@@ -1,0 +1,1 @@
+# Simulador de um sistema de votação

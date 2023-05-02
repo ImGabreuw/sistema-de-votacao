@@ -1,0 +1,18 @@
+ _______________________________________________________________________________________
+|                              Ranking do resultado para governador                     |
+|---------------------------------------------------------------------------------------|
+|             Nome             |   Partido   |   Total de votos   |   % Votos válidos   |
+| --------------------------------------------------------------------------------------|
+
+
+
+| {{index}}.       {{nome_candidato}}       |   {{partido_candidato}}   |   {{total_votos_candidato}}   |   {{votos_validos_candidato}} |
+
+
+
+ _______________________________________________________________________________________
+|   Total de votos =  {{total_votos}}                                                   |
+|   Total de votos válidos e % = {{votos_validos}} ({{porc_votos_validos}}%)            |
+|   Total de brancos e % = {{brancos}} ({{porc_brancos}}%)                              |
+|   Total de nulos e % = {{nulos}} ({{porc_nulos}}%)                                    |
+|_______________________________________________________________________________________|
