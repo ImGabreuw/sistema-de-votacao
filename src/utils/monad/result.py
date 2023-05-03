@@ -6,6 +6,8 @@ E = TypeVar("E", bound=BaseException)
 """
 Reference: https://jellis18.github.io/post/2021-12-13-python-exceptions-rust-go/
 """
+
+
 class Ok(Generic[T]):
     _value: T
     __match_args__ = ("_value",)
