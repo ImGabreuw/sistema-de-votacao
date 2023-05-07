@@ -1,38 +1,44 @@
 from dataclasses import dataclass
-from typing import Tuple, List
 
-from src.entities.voter import Voter
+from src.entities.vote import Vote
+from src.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.utils.cpf_utils import is_valid_cpf
+from src.utils.monad.result import Result, Err, Ok
 
 
 def any_invalid_candidate_number(*numbers) -> bool:
     return any(number < -2 for number in numbers)
 
 
-@dataclass()
+@dataclass
 class Voter:
     name: str
     cpf: str
-    mayor: int
-    governor: int
-    president: int
+    vote: Vote | None
 
-    @staticmethod
-    def create(name: str, cpf: str) -> Tuple[Voter | None, Exception | None]:
-        if not is_valid_cpf(cpf):
-            return None, Exception("CPF inválido.")
-
-        return Voter(name, cpf, -2, -2, -2), None
-
-    def count_votes(
+    def voting(
             self,
             mayor_number: int,
             governor_number: int,
             president_number: int
-    ) -> Tuple[None, Exception | None]:
+    ) -> Result[None, IllegalArgumentException]:
         if any_invalid_candidate_number(mayor_number, governor_number, president_number):
-            return None, Exception("Voto inválido.")
+            return Err(IllegalArgumentException("Voto inválido."))
 
-        self.mayor = mayor_number
-        self.governor = governor_number
-        self.president = president_number
+        self.vote = Vote(mayor_number, governor_number, president_number)
+
+        return Ok(None)
+
+
+def create(name: str, cpf: str) -> Result[Voter, IllegalArgumentException]:
+    if len(name) == 0:
+        return Err(
+            IllegalArgumentException("Nome é obrigatório.")
+        )
+
+    if not is_valid_cpf(cpf):
+        return Err(
+            IllegalArgumentException("CPF inválido.")
+        )
+
+    return Ok(Voter(name, cpf, None))
