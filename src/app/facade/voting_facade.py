@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
-from src.service.candidate_service import CandidateService
-from src.service.voter_service import VoterService
-from src.service.voting_service import VotingService
+from src.app.service.candidate_service import CandidateService
+from src.app.service.voter_service import VoterService
+from src.app.service.voting_service import VotingService
 
 
 @dataclass
@@ -10,32 +10,6 @@ class VotingFacade:
     _voting_service: VotingService
     _voter_service: VoterService
     _candidate_service: CandidateService
-
-    def confirm_vote(self, number: int) -> bool:
-        candidate, error = self._candidate_service.find_by_number(number)
-
-        if error is Exception or candidate.number == -2:
-            print(f"""
-            Confirmação do voto
-
-            Voto nulo
-            """)
-
-        if candidate.number == -1:
-            print(f"""
-            Confirmação do voto
-
-            Voto nulo
-            """)
-
-        print(f"""
-        Confirmação do voto
-
-        Candidato: {candidate.name} ({candidate.political_party})
-        Número: {candidate.name}
-        """)
-
-        return input("Confirmar (SIM ou NÃO): ").upper() == "SIM"
 
     def voting(self) -> None:
         voters = self._voter_service.find_all()

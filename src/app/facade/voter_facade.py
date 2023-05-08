@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.service.voter_service import VoterService
+from src.app.service.voter_service import VoterService
 
 
 @dataclass

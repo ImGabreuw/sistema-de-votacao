@@ -1,7 +1,8 @@
+from operator import itemgetter
 from typing import List, Tuple
 
-from src.entities.candidate import Candidate
-from src.entities.role import Role, find_role_by_name
+from src.domain.entities.candidate import Candidate
+from src.domain.entities.role import Role, find_role_by_name
 
 
 class CandidateService:
@@ -56,3 +57,20 @@ class CandidateService:
                 return candidate, None
 
         return None, Exception(f"Não foi possível encontrar um candidato com o número '{number}'.")
+
+    def fetch_ranking(self) -> Tuple[List[Candidate], List[Candidate], List[Candidate]]:
+        self._president_candidates.sort(
+            key=itemgetter('number_of_votes'),
+            reverse=True
+        )
+        self._governor_candidates.sort(
+            key=itemgetter('number_of_votes'),
+            reverse=True
+        )
+        self._mayor_candidates.sort(
+            key=itemgetter('number_of_votes'),
+            reverse=True
+        )
+
+        return self._mayor_candidates, self._governor_candidates, self._president_candidates
+

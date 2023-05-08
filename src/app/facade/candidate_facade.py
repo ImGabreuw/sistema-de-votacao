@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.service.candidate_service import CandidateService
+from src.app.service.candidate_service import CandidateService
 
 
 @dataclass

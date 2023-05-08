@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
-from src.entities.voter import Voter
-from src.utils.cpf_utils import is_valid_cpf
+from src.domain.entities.voter import Voter
+from src.shared.cpf_utils import is_valid_cpf
 
 
 class VoterService:
