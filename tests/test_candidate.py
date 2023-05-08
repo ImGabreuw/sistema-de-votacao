@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from src.entities.candidate import create
-from src.entities.role import Role
+from src.domain.entities.candidate import create
+from src.domain.entities.role import Role
 
 
 class TestCandidate(TestCase):
