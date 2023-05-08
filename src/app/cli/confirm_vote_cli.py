@@ -6,7 +6,7 @@ from src.domain.adapter.confirm_vote import ConfirmVote
 from src.domain.entities.vote import Vote
 
 
-@dataclass
+@dataclass(frozen=True)
 class ConfirmVoteCLI(ConfirmVote):
     _template_loader: TemplateLoader
     _candidate_service: CandidateService
@@ -20,5 +20,16 @@ class ConfirmVoteCLI(ConfirmVote):
             message = self._template_loader.get_template("confirm-null-vote")
         else:
             message = self._template_loader.get_template("confirm-vote")
+
+            candidate_result = self._candidate_service.find_by_number(vote.candidate_number)
+
+            if candidate_result.is_err():
+                return False
+
+            candidate = candidate_result.unwrap()
+
+            message = message.format(candidate.name, candidate.political_party, candidate.number)
+
+        print(message)
 
         return input(message).upper() == "SIM"

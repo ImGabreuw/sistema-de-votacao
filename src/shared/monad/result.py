@@ -53,6 +53,9 @@ class Err(Generic[E]):
     def is_err(self) -> Literal[True]:
         return True
 
+    def propagate(self) -> E:
+        return self._err
+
     def unwrap(self) -> NoReturn:
         raise self._err
 

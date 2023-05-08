@@ -3,8 +3,9 @@
 |-----------------------------------------------|
 |                 Informações:                  |
 |                                               |
-| Candidato: {{name}}                           |
-| Número: {{number}}                            |
+| Candidato: {0}                                |
+| Partido: {1}                                  |
+| Número: {2}                                   |
 |                                               |
 | Sua votação está correta? (SIM ou NÃO)        |
 |_______________________________________________|

@@ -1,5 +1,7 @@
 from enum import Enum
-from typing import Tuple
+
+from src.app.service.errors.illegal_argument_exception import IllegalArgumentException
+from src.shared.monad.result import Result, Ok, Err
 
 
 class Role(Enum):
@@ -8,9 +10,11 @@ class Role(Enum):
     MAYOR = "prefeito"
 
 
-def find_role_by_name(role_name: str) -> Tuple[Role | None, Exception | None]:
+def find_role_by_name(role_name: str) -> Result[Role, IllegalArgumentException]:
     for role in Role:
         if role.value == role_name:
-            return role, None
+            return Ok(role)
 
-    return None, Exception(f"Não existe cargo ({role_name}) para disputa.")
+    return Err(
+        IllegalArgumentException(f"Não existe cargo ({role_name}) para disputa.")
+    )
