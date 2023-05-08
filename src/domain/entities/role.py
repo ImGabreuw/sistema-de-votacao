@@ -5,9 +5,9 @@ from src.shared.monad.result import Result, Ok, Err
 
 
 class Role(Enum):
-    PRESIDENT = "presidente"
-    GOVERNOR = "governador"
     MAYOR = "prefeito"
+    GOVERNOR = "governador"
+    PRESIDENT = "presidente"
 
 
 def find_role_by_name(role_name: str) -> Result[Role, IllegalArgumentException]:

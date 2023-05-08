@@ -1,46 +1,58 @@
 from dataclasses import dataclass
 
 from src.app.service.candidate_service import CandidateService
+from src.app.service.errors.illegal_argument_exception import IllegalArgumentException
+from src.app.service.errors.not_confirm_vote_exception import NotConfirmVoteException
 from src.app.service.voter_service import VoterService
 from src.app.service.voting_service import VotingService
+from src.domain.adapter.confirm_vote import ConfirmVote
+from src.domain.entities.role import Role
+from src.domain.entities.vote import vote
+from src.domain.entities.voter import Voter
+from src.shared.monad.result import Result, Err, Ok
 
 
 @dataclass
 class VotingFacade:
+    _confirm_vote: ConfirmVote
     _voting_service: VotingService
     _voter_service: VoterService
     _candidate_service: CandidateService
 
     def voting(self) -> None:
-        voters = self._voter_service.find_all()
         index = 0
+        voters = self._voter_service.find_all()
 
         while index < len(voters):
             voter = voters[index]
+            vote_result = self.__count_vote(voter)
 
-            print(f"""
-            
-            Voto do eleitor: {voter.name}
-            (branco = -1 e nulo = -2)
-            
-            """)
-
-            mayor_number = int(input("Número do candidato para prefeito: "))
-            if not self.confirm_vote(mayor_number):
-                continue
-
-            governor_number = int(input("Número do candidato para governador: "))
-            if not self.confirm_vote(governor_number):
-                continue
-
-            president_number = int(input("Número do candidato para presidente: "))
-            if not self.confirm_vote(president_number):
-                continue
-
-            _, error = self._voting_service.count_vote(voter.cpf, mayor_number, governor_number, president_number)
-
-            if error is Exception:
-                print(f"Não foi possível contabilizar o voto do eleitor '{voter.name}'.")
+            if vote_result.is_err():
+                print(f"O voto do eleitor '{voter.name}' não foi confirmado.")
                 continue
 
             index += 1
+
+    def __count_vote(self, voter: Voter) -> Result[None, IllegalArgumentException | NotConfirmVoteException]:
+        print(f"""
+
+        Voto do eleitor: {voter.name}
+        (branco = -1 e nulo = -2)
+
+        """)
+
+        for role in Role:
+            candidate_number = int(input(f"Número do candidato para {role.value}: "))
+            vote_result = vote(role, candidate_number)
+
+            if vote_result.is_err():
+                return Err(vote_result.propagate())
+
+            confirm = self._confirm_vote.confirm(vote_result.unwrap())
+
+            if not confirm:
+                return Err(NotConfirmVoteException())
+
+            voter.add_vote(vote_result.unwrap())
+
+        return Ok(None)
