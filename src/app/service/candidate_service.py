@@ -1,4 +1,3 @@
-from operator import itemgetter
 from typing import List, Tuple
 
 from src.app.service.errors.illegal_argument_exception import IllegalArgumentException
@@ -8,15 +7,19 @@ from src.shared.monad.result import Result, Ok, Err
 
 
 class CandidateService:
-    _president_candidates: List[Candidate] = []
-    _governor_candidates: List[Candidate] = []
-    _mayor_candidates: List[Candidate] = []
+    president_candidates: List[Candidate] = []
+    governor_candidates: List[Candidate] = []
+    mayor_candidates: List[Candidate] = []
 
-    def find_all(self):
-        return [*self._president_candidates, *self._governor_candidates, *self._mayor_candidates]
+    def find_all(self) -> List[Candidate]:
+        return [*self.president_candidates, *self.governor_candidates, *self.mayor_candidates]
 
     def is_unavailable_number(self, number: int) -> bool:
-        return any(number == i for i in self.find_all())
+        for n in self.find_all():
+            if n.number == number:
+                return True
+
+        return False
 
     def register(
             self,
@@ -37,7 +40,7 @@ class CandidateService:
             name,
             number,
             political_party,
-            disputed_role,
+            role_result.unwrap()
         )
 
         if candidate_result.is_err():
@@ -46,14 +49,14 @@ class CandidateService:
         candidate = candidate_result.unwrap()
 
         if candidate.disputed_role == Role.PRESIDENT:
-            self._president_candidates.append(candidate)
+            self.president_candidates.append(candidate)
             return Ok(None)
 
         if candidate.disputed_role == Role.GOVERNOR:
-            self._governor_candidates.append(candidate)
+            self.governor_candidates.append(candidate)
             return Ok(None)
 
-        self._mayor_candidates.append(candidate)
+        self.mayor_candidates.append(candidate)
         return Ok(None)
 
     def find_by_number(self, number: int) -> Result[Candidate, IllegalArgumentException]:
@@ -66,17 +69,17 @@ class CandidateService:
         )
 
     def fetch_ranking(self) -> Tuple[List[Candidate], List[Candidate], List[Candidate]]:
-        self._president_candidates.sort(
-            key=itemgetter('number_of_votes'),
+        self.president_candidates.sort(
+            key=lambda candidate: candidate.number_of_votes,
             reverse=True
         )
-        self._governor_candidates.sort(
-            key=itemgetter('number_of_votes'),
+        self.governor_candidates.sort(
+            key=lambda candidate: candidate.number_of_votes,
             reverse=True
         )
-        self._mayor_candidates.sort(
-            key=itemgetter('number_of_votes'),
+        self.mayor_candidates.sort(
+            key=lambda candidate: candidate.number_of_votes,
             reverse=True
         )
 
-        return self._mayor_candidates, self._governor_candidates, self._president_candidates
+        return self.mayor_candidates, self.governor_candidates, self.president_candidates
