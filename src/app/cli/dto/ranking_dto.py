@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List
 
-from src.app.dto.candidate_dto import CandidateDTO
+from src.app.cli.dto.candidate_dto import CandidateDTO
 
 
 @dataclass(frozen=True)

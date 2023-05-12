@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Tuple, List
 
-from src.app.dto.ranking_dto import RankingDTO
-from src.app.dto.voting_result_dto import VotingResultDTO
+from src.app.cli.dto.ranking_dto import RankingDTO
+from src.app.cli.dto.voting_result_dto import VotingResultDTO
 from src.app.service.candidate_service import CandidateService
 
 
