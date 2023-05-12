@@ -14,16 +14,16 @@ class VoterFacade:
             name = input("Nome: ")
             cpf = input("CPF: ")
 
-            _, error = self._voter_service.register(
+            result = self._voter_service.register(
                 name,
                 cpf,
             )
 
-            if error is Exception:
+            if result.is_err():
                 print(f"""
                         Não foi possível realizar o cadastro do eleitor '{name}'.
 
-                        Erro: {error.args}
+                        Erro: {result.propagate().args}
                         """)
                 continue
 

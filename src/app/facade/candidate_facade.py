@@ -23,11 +23,11 @@ class CandidateFacade:
                 disputed_role
             )
 
-            if result is Exception:
+            if result.is_err():
                 print(f"""
                         Não foi possível realizar o cadastro do candidato '{name}'.
 
-                        Erro: {result.args}
+                        Erro: {result.propagate().args}
                         """)
                 continue
 
