@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from src.app.config.file_item_args import FileItemArgs
+from src.app.config.template_item_args import FileItemArgs
 from src.app.config.template_loader import TemplateLoader
 from src.domain.entities.voter import create
 

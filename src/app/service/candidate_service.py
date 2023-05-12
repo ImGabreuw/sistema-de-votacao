@@ -98,5 +98,6 @@ class CandidateService:
 
         return dict(sorted(
             count.items(),
-            key=lambda item: item[1]
+            key=lambda item: item[1],
+            reverse=True
         ))

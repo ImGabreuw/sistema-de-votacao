@@ -3,7 +3,7 @@ from os import listdir
 from os.path import join, dirname, abspath
 from typing import Dict, List
 
-from src.app.config.file_item_args import FileItemArgs
+from src.app.config.template_item_args import FileItemArgs
 from src.shared.annotion.singleton import singleton
 
 
