@@ -27,9 +27,12 @@ class VotingFacade:
             voter = voters[index]
             vote_result = self.__count_vote(voter)
 
-            if vote_result.is_err():
+            if vote_result.propagate() is NotConfirmVoteException:
                 print(f"O voto do eleitor '{voter.name}' não foi confirmado.")
                 continue
+
+            if vote_result.propagate() is IllegalArgumentException:
+                print(f"Não foi possível prosseguir com a votação. Erro: {vote_result.propagate()}")
 
             index += 1
 
