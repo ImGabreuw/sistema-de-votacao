@@ -22,6 +22,9 @@ class Voter:
             vote.role: vote
         })
 
+    def has_voted(self) -> bool:
+        return len(set(self.votes.keys())) == 3
+
 
 def create(name: str, cpf: str) -> Result[Voter, IllegalArgumentException]:
     if len(name) == 0:

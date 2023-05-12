@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 from src.app.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.domain.entities.candidate import Candidate, create
@@ -83,3 +83,20 @@ class CandidateService:
         )
 
         return self.mayor_candidates, self.governor_candidates, self.president_candidates
+
+    def fetch_political_party_ranking(self) -> Dict[str, int]:
+        count: Dict[str, int] = {}
+
+        for candidate in self.find_all():
+            political_party = candidate.political_party
+
+            if political_party in count:
+                count[political_party] += 1
+                continue
+
+            count.update({political_party: 1})
+
+        return dict(sorted(
+            count.items(),
+            key=lambda item: item[1]
+        ))

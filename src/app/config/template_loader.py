@@ -1,7 +1,9 @@
+import re
 from os import listdir
 from os.path import join, dirname, abspath
-from typing import Dict
+from typing import Dict, List
 
+from src.app.config.file_item_args import FileItemArgs
 from src.shared.annotion.singleton import singleton
 
 
@@ -26,3 +28,32 @@ class TemplateLoader:
 
     def get_template(self, filename: str) -> str:
         return self.templates[filename]
+
+    def fill_files_item(self, template: str, file_item_args: List[FileItemArgs]) -> str:
+        filled_template = ""
+        match = re.search(r"\{file:(.*?)}", template)
+
+        if match:
+            for index, filename in enumerate(match.groups()):
+                template = self.templates[filename]
+                current_file_args = file_item_args[index]
+
+                for i in range(current_file_args.repeat_template):
+                    filled_template += template.format(*current_file_args.args[i]) + "\n"
+
+        return filled_template
+
+    @staticmethod
+    def make_responsive(template: str) -> str:
+        responsive = []
+
+        lines = template.split("\n")
+        lines.pop()
+
+        max_width = max([len(line) for line in lines])
+
+        for line in lines:
+            line_without_border = line[1:-2]
+            responsive.append(f"|{line_without_border.center(max_width, ' ')}|")
+
+        return "\n".join(responsive)
