@@ -1,3 +1,4 @@
+import textwrap
 from dataclasses import dataclass
 
 from src.domain.service.voter_service import VoterService
@@ -7,7 +8,7 @@ from src.domain.service.voter_service import VoterService
 class VoterFacade:
     _voter_service: VoterService
 
-    def register_candidates(self) -> None:
+    def register_voters(self) -> None:
         while True:
             print("\nInsira as informações do candidato:\n")
 
@@ -20,12 +21,14 @@ class VoterFacade:
             )
 
             if result.is_err():
-                print(f"""
-                        Não foi possível realizar o cadastro do eleitor '{name}'.
+                print(textwrap.dedent(
+                    f"""
+                    Não foi possível realizar o cadastro do eleitor '{name}'.
 
-                        Erro: {result.propagate().args}
-                        """)
+                    Erro: {result.get_error_message()}
+                    """
+                ))
                 continue
 
-            if input("Deseja inserir um novo candidato? (SIM ou NÃO) ").upper() == "NÃO":
+            if input("Deseja inserir um novo eleitor? (SIM ou NÃO) ").upper() == "NÃO":
                 break
