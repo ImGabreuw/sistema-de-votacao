@@ -1,5 +1,6 @@
 from typing import List, Tuple, Dict
 
+from src.domain.service.errors.entity_already_exists_exception import EntityAlreadyExists
 from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.domain.entities.candidate import Candidate, create
 from src.domain.entities.role import Role, find_role_by_name
@@ -47,6 +48,11 @@ class CandidateService:
             return Err(candidate_result.propagate())
 
         candidate = candidate_result.unwrap()
+
+        if candidate in self.find_all():
+            return Err(
+                EntityAlreadyExists(f"Já existe um candidato com o nome '{candidate.name}'.")
+            )
 
         if candidate.disputed_role == Role.PRESIDENT:
             self.president_candidates.append(candidate)

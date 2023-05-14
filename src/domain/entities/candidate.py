@@ -14,6 +14,12 @@ class Candidate:
     disputed_role: Role
     number_of_votes: int
 
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, Candidate):
+            return False
+
+        return self.name == other.name
+
     def get_number_of_votes(self) -> int:
         return self.number_of_votes
 
