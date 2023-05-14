@@ -56,6 +56,9 @@ class Err(Generic[E]):
     def propagate(self) -> E:
         return self._err
 
+    def get_error_message(self) -> str:
+        return self._err.args[0]
+
     def unwrap(self) -> NoReturn:
         raise self._err
 

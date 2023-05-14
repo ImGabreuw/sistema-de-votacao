@@ -2,7 +2,7 @@ from typing import List
 
 from src.app.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.domain.entities.voter import Voter, create
-from src.shared.cpf_utils import is_valid_cpf
+from src.shared.helper.cpf_helper import is_valid_cpf
 from src.shared.monad.result import Result, Err, Ok
 
 

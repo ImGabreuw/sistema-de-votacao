@@ -18,3 +18,7 @@ def find_role_by_name(role_name: str) -> Result[Role, IllegalArgumentException]:
     return Err(
         IllegalArgumentException(f"Não existe cargo ({role_name}) para disputa.")
     )
+
+
+def format_roles() -> str:
+    return " / ".join([role.value for role in Role])

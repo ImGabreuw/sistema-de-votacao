@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from src.domain.entities.role import Role
 from src.app.service.errors.illegal_argument_exception import IllegalArgumentException
+from src.shared.helper.string_helper import normalize_person_name
 from src.shared.monad.result import Result, Err, Ok
 
 
@@ -47,9 +48,9 @@ def create(
         )
 
     return Ok(Candidate(
-        name,
+        normalize_person_name(name),
         number,
-        political_party,
+        political_party.upper(),
         disputed_role,
         0
     ))
