@@ -3,8 +3,8 @@ from typing import List
 
 from src.app.config.template_item_args import FileItemArgs
 from src.app.config.template_loader import TemplateLoader
-from src.app.service.candidate_service import CandidateService
-from src.app.service.voter_service import VoterService
+from src.domain.service.candidate_service import CandidateService
+from src.domain.service.voter_service import VoterService
 from src.domain.entities.voter import Voter
 
 

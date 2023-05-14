@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from src.app.config.template_loader import TemplateLoader
-from src.app.service.candidate_service import CandidateService
+from src.domain.service.candidate_service import CandidateService
 from src.domain.adapter.confirm_vote import ConfirmVote
 from src.domain.entities.vote import Vote
 

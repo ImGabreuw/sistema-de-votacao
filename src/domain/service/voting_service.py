@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Tuple
 
-from src.app.service.candidate_service import CandidateService
-from src.app.service.voter_service import VoterService
+from src.domain.service.candidate_service import CandidateService
+from src.domain.service.voter_service import VoterService
 
 
 @dataclass

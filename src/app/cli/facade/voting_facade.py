@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
-from src.app.service.candidate_service import CandidateService
-from src.app.service.errors.illegal_argument_exception import IllegalArgumentException
-from src.app.service.errors.not_confirm_vote_exception import NotConfirmVoteException
-from src.app.service.voter_service import VoterService
-from src.app.service.voting_service import VotingService
+from src.domain.service.candidate_service import CandidateService
+from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
+from src.domain.service.errors.not_confirm_vote_exception import NotConfirmVoteException
+from src.domain.service.voter_service import VoterService
+from src.domain.service.voting_service import VotingService
 from src.domain.adapter.confirm_vote import ConfirmVote
 from src.domain.entities.role import Role
 from src.domain.entities.vote import vote

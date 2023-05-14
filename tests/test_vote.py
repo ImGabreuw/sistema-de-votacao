@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from src.app.service.errors.illegal_argument_exception import IllegalArgumentException
+from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.domain.entities.role import Role
 from src.domain.entities.vote import vote
 

@@ -1,6 +1,6 @@
 from typing import List, Tuple, Dict
 
-from src.app.service.errors.illegal_argument_exception import IllegalArgumentException
+from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.domain.entities.candidate import Candidate, create
 from src.domain.entities.role import Role, find_role_by_name
 from src.shared.monad.result import Result, Ok, Err

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.app.service.errors.illegal_argument_exception import IllegalArgumentException
+from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.domain.entities.role import Role
 from src.shared.monad.result import Result, Err, Ok
 

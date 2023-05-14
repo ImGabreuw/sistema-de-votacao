@@ -1,6 +1,6 @@
 from enum import Enum
 
-from src.app.service.errors.illegal_argument_exception import IllegalArgumentException
+from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.shared.monad.result import Result, Ok, Err
 
 

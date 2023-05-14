@@ -1,7 +1,7 @@
 import textwrap
 from dataclasses import dataclass
 
-from src.app.service.candidate_service import CandidateService
+from src.domain.service.candidate_service import CandidateService
 from src.domain.entities.role import format_roles
 from src.shared.helper.number_helper import parse_int
 

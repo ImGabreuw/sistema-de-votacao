@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from src.app.service.candidate_service import CandidateService
-from src.app.service.errors.illegal_argument_exception import IllegalArgumentException
+from src.domain.service.candidate_service import CandidateService
+from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.domain.entities.role import Role
 
 
