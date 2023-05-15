@@ -48,12 +48,29 @@ class TemplateLoader:
         responsive = []
 
         lines = template.split("\n")
-        lines.pop()
+        # lines.pop()
 
         max_width = max([len(line) for line in lines])
 
-        for line in lines:
+        for index, line in enumerate(lines):
+            # responsividade na borda superior do template
+            if index == 0:
+                first_line = line.center(max_width, ' ')
+                responsive.append(f" {first_line.replace(' ', '_')} ")
+                continue
+
             line_without_border = line[1:-2]
+
+            # responsividade nos divisores de conteúdo dentro do template
+            if line.count("-") > len(line) / 2:
+                responsive.append(f"|{line_without_border.center(max_width, ' ')}|".replace(" ", "-"))
+                continue
+
+            # responsividade na borda inferior do template
+            if line.count("_") > len(line) / 2:
+                responsive.append(f"|{line_without_border.center(max_width, ' ')}|".replace(" ", "_"))
+                continue
+
             responsive.append(f"|{line_without_border.center(max_width, ' ')}|")
 
         return "\n".join(responsive)

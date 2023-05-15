@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.domain.entities.role import Role
-from src.domain.entities.vote import vote
+from src.domain.entities.vote import create
 
 
 class TestVote(TestCase):
@@ -11,7 +11,7 @@ class TestVote(TestCase):
         role = Role.PRESIDENT
         candidate_number = 1
 
-        vote_result = vote(role, candidate_number)
+        vote_result = create(role, candidate_number)
 
         self.assertTrue(vote_result.is_ok())
 
@@ -19,7 +19,7 @@ class TestVote(TestCase):
         role = Role.PRESIDENT
         candidate_number = -3
 
-        vote_result = vote(role, candidate_number)
+        vote_result = create(role, candidate_number)
 
         self.assertTrue(vote_result.is_err())
         with self.assertRaises(IllegalArgumentException, msg="Número de candidato inválido."):
@@ -29,7 +29,7 @@ class TestVote(TestCase):
         role = Role.PRESIDENT
         candidate_number = -1
 
-        vote_result = vote(role, candidate_number)
+        vote_result = create(role, candidate_number)
 
         self.assertTrue(vote_result.unwrap().is_blank())
 
@@ -37,7 +37,7 @@ class TestVote(TestCase):
         role = Role.PRESIDENT
         candidate_number = -2
 
-        vote_result = vote(role, candidate_number)
+        vote_result = create(role, candidate_number)
 
         self.assertTrue(vote_result.unwrap().is_null())
 
@@ -45,6 +45,6 @@ class TestVote(TestCase):
         role = Role.PRESIDENT
         candidate_number = 1
 
-        vote_result = vote(role, candidate_number)
+        vote_result = create(role, candidate_number)
 
         self.assertTrue(vote_result.unwrap().is_valid_vote())

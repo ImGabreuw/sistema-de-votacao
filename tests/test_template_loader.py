@@ -34,3 +34,11 @@ class TestTemplateLoader(TestCase):
         ])
 
         print(self.templateLoader.make_responsive(template))
+
+    def test_make_responsive_on_confirm_vote(self):
+        template = self.templateLoader.get_template("confirm-vote")
+        template = template.format("Gabriel", "GAB", 1)
+
+        template = self.templateLoader.make_responsive(template)
+
+        print(template)

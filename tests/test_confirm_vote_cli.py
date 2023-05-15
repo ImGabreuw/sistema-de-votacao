@@ -6,7 +6,7 @@ from src.app.config.template_loader import TemplateLoader
 from src.domain.service.candidate_service import CandidateService
 from src.domain.adapter.confirm_vote import ConfirmVote
 from src.domain.entities.role import Role
-from src.domain.entities.vote import vote
+from src.domain.entities.vote import create
 
 
 class TestConfirmVoteCLI(TestCase):
@@ -25,7 +25,7 @@ class TestConfirmVoteCLI(TestCase):
 
     @patch("src.app.cli.confirm_vote_cli.ConfirmVoteCLI.confirm", return_value="SIM")
     def test_confirm(self, input):
-        vote_result = vote(Role.PRESIDENT, 1)
+        vote_result = create(Role.PRESIDENT, 1)
 
         confirm = self.confirm_vote.confirm(vote_result.unwrap())
 

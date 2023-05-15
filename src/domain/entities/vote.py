@@ -20,7 +20,7 @@ class Vote:
         return not (self.is_blank() or self.is_null())
 
 
-def vote(role: Role, candidate_number: int) -> Result[Vote, IllegalArgumentException]:
+def create(role: Role, candidate_number: int) -> Result[Vote, IllegalArgumentException]:
     if candidate_number < -2:
         return Err(IllegalArgumentException("Número de candidato inválido."))
 

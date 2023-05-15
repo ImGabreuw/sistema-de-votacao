@@ -1,8 +1,11 @@
 from dataclasses import dataclass
 from typing import Tuple
 
+from src.domain.entities.voter import Voter
 from src.domain.service.candidate_service import CandidateService
+from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.domain.service.voter_service import VoterService
+from src.shared.monad.result import Result, Err, Ok
 
 
 @dataclass
@@ -10,29 +13,26 @@ class VotingService:
     _candidate_service: CandidateService
     _voter_service: VoterService
 
-    def count_vote(
+    def count_votes(
             self,
-            voter_cpf: str,
-            mayor_number: int,
-            governor_number: int,
-            president_number: int
-    ) -> Tuple[None, Exception | None]:
-        voter, error = self._voter_service.find_by_cpf(voter_cpf)
+            voter: Voter
+    ) -> Result[None, IllegalArgumentException]:
+        if not voter.has_voted():
+            return Err(
+                IllegalArgumentException(f"O eleitor '{voter.name}' ainda não votou.")
+            )
 
-        if error is Exception:
-            return None, error
+        for role, vote in voter.votes.items():
+            if not vote.is_valid_vote():
+                continue
 
-        _, error = voter.count_votes(mayor_number, governor_number, president_number)
+            candidate_result = self._candidate_service.find_by_number(vote.candidate_number)
 
-        if error is Exception:
-            return None, error
+            if candidate_result.is_err():
+                # usuário inseriu um candidato inexiste -> voto nulo
+                voter.votes[role].candidate_number = -2
+                continue
 
-        for number in [mayor_number, governor_number, president_number]:
-            candidate, error = self._candidate_service.find_by_number(number)
+            candidate_result.unwrap().increment_vote()
 
-            if error is Exception:
-                return None, error
-
-            candidate.increment_vote()
-
-        return None, None
+        return Ok(None)

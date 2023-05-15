@@ -30,6 +30,6 @@ class ConfirmVoteCLI(ConfirmVote):
 
             message = message.format(candidate.name, candidate.political_party, candidate.number)
 
-        print(message)
+        print(self._template_loader.make_responsive(message))
 
-        return input(message).upper() == "SIM"
+        return input().upper() == "SIM"
