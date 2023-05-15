@@ -1,9 +1,9 @@
 from dataclasses import dataclass, field
 from typing import Dict
 
-from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.domain.entities.role import Role
 from src.domain.entities.vote import Vote
+from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.shared.helper.cpf_helper import is_valid_cpf, format_cpf
 from src.shared.helper.string_helper import normalize_person_name
 from src.shared.monad.result import Result, Err, Ok

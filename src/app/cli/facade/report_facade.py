@@ -14,7 +14,7 @@ class ReportFacade:
     _voter_service: VoterService
     _template_loader: TemplateLoader
 
-    def make_report(self) -> None:
+    def show_report(self) -> None:
         voters = self._voter_service.find_all()
         report_template = self.__load_report_template(voters)
 

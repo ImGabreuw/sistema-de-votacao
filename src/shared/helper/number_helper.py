@@ -14,3 +14,7 @@ def parse_int(raw_int: str) -> Result[int, ValueError]:
         return Err(ValueError(f"{raw_int} não é um número inteiro."))
 
     return Ok(int(raw_int))
+
+
+def format_number(number: float, digits: int = 2) -> float:
+    return float(f"{number:.{digits}f}")

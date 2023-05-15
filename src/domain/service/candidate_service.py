@@ -22,6 +22,11 @@ class CandidateService:
 
         return False
 
+    def is_insufficient_candidates(self) -> bool:
+        return len(self.mayor_candidates) == 0 \
+            or len(self.governor_candidates) == 0 \
+            or len(self.president_candidates) == 0
+
     def register(
             self,
             name: str,

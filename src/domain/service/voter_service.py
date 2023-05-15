@@ -1,5 +1,6 @@
 from typing import List
 
+from src.domain.entities.vote import Vote
 from src.domain.service.errors.entity_already_exists_exception import EntityAlreadyExists
 from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.domain.entities.voter import Voter, create
@@ -38,6 +39,14 @@ class VoterService:
 
     def find_all(self) -> List[Voter]:
         return self._voters
+
+    def fetch_all_votes(self) -> List[Vote]:
+        votes = []
+
+        for voter in self._voters:
+            votes += list(voter.votes.values())
+
+        return votes
 
     def fetch_who_voted(self) -> List[Voter]:
         return [voter for voter in self._voters if voter.has_voted()]

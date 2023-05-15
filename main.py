@@ -1,6 +1,7 @@
 from src.app.cli.confirm_vote_cli import ConfirmVoteCLI
 from src.app.cli.facade.candidate_facade import CandidateFacade
 from src.app.cli.facade.menu_facade import MenuFacade
+from src.app.cli.facade.report_facade import ReportFacade
 from src.app.cli.facade.voter_facade import VoterFacade
 from src.app.cli.facade.voting_facade import VotingFacade
 from src.app.config.template_loader import TemplateLoader
@@ -37,6 +38,13 @@ if __name__ == '__main__':
                 voter_service,
                 candidate_service
             ).voting()
+
+        if selected_option == 5:
+            ReportFacade(
+                candidate_service,
+                voter_service,
+                template_loader
+            ).show_report()
 
         if selected_option == 6:
             print(template_loader.get_template("end"))
