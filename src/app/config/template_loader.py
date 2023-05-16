@@ -33,6 +33,8 @@ class TemplateLoader:
         filled_template = ""
         match = re.search(r"\{file:(.*?)}", template)
 
+        lines = template.split("\n")
+
         if match:
             for index, filename in enumerate(match.groups()):
                 template = self.templates[filename]
@@ -41,20 +43,23 @@ class TemplateLoader:
                 for i in range(current_file_args.repeat_template):
                     filled_template += template.format(*current_file_args.args[i]) + "\n"
 
-        return filled_template
+                fill_index = lines.index("{file:" + filename + "}")
+
+                lines[fill_index] = filled_template
+
+        return "\n".join(lines)
 
     @staticmethod
     def make_responsive(template: str) -> str:
         responsive = []
 
         lines = template.split("\n")
-        # lines.pop()
 
         max_width = max([len(line) for line in lines])
 
         for index, line in enumerate(lines):
             # responsividade na borda superior do template
-            if index == 0:
+            if index == 0 and line.count("_") > len(line) / 2:
                 first_line = line.center(max_width, ' ')
                 responsive.append(f" {first_line.replace(' ', '_')} ")
                 continue

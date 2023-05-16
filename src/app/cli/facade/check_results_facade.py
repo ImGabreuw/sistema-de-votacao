@@ -55,7 +55,7 @@ class CheckResultsFacade:
     def __load_ranking_template(self, role: Role, ranking: RankingDTO) -> str:
         ranking_template_item_args = [
             [
-                index,
+                index + 1,
                 candidate.name,
                 candidate.political_party,
                 candidate.votes,
