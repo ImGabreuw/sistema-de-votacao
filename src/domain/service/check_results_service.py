@@ -39,14 +39,14 @@ class CheckResultService:
         ranking_dto = []
         ranking = self._candidate_service.fetch_ranking()
 
-        for i in range(len(Role)):
+        for i, role in enumerate(Role):
             candidates: List[CandidateDTO] = []
-            total_votes = len(self._voter_service.find_all()) * 3
+            total_votes = len(self._voter_service.find_all())
             total_valid_votes = 0
             total_blank = 0
             total_null = 0
 
-            for vote in self._voter_service.fetch_all_votes():
+            for vote in self._voter_service.fetch_all_votes_by_role(role):
                 if vote.is_blank():
                     total_blank += 1
                     continue
@@ -62,18 +62,18 @@ class CheckResultService:
                     candidate.name,
                     candidate.political_party,
                     candidate.number_of_votes,
-                    candidate.number_of_votes / total_valid_votes
+                    (candidate.number_of_votes / total_valid_votes) * 100
                 ))
 
             ranking_dto.append(RankingDTO(
                 candidates,
                 total_votes,
                 total_valid_votes,
-                total_valid_votes / total_votes,
+                (total_valid_votes / total_votes) * 100,
                 total_blank,
-                total_blank / total_votes,
+                (total_blank / total_votes) * 100,
                 total_null,
-                total_null / total_votes
+                (total_null / total_votes) * 100
             ))
 
         return ranking_dto
