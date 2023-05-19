@@ -73,7 +73,7 @@ class TemplateLoader:
             if has_column(line_without_border):
                 responsive_columns = []
                 columns = line_without_border.split("|")
-                column_width = max_column_width[line_without_border.count("|")]
+                column_width = max_column_width[get_number_of_columns(line)]
 
                 for i, column in enumerate(columns):
                     responsive_columns.append(
@@ -112,6 +112,10 @@ class TemplateLoader:
         return "\n".join(responsive)
 
 
+def get_number_of_columns(line: str) -> int:
+    return line.count("|") - 1
+
+
 def get_table_max_column_width(lines: List[str]) -> Dict[int, List[int]]:
     tables = {}
 
@@ -119,7 +123,7 @@ def get_table_max_column_width(lines: List[str]) -> Dict[int, List[int]]:
         if not has_column(line):
             continue
 
-        number_of_column = line.count("|")
+        number_of_column = get_number_of_columns(line)
 
         if number_of_column <= 2:
             continue
@@ -127,7 +131,7 @@ def get_table_max_column_width(lines: List[str]) -> Dict[int, List[int]]:
         if number_of_column not in tables:
             tables.update({number_of_column: []})
 
-        columns = line.split("|")
+        columns = line[1:-2].split("|")
 
         for column in columns:
             column = column.replace("|", "")

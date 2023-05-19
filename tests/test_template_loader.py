@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from src.app.config.template_item_args import FileItemArgs
-from src.app.config.template_loader import TemplateLoader
+from src.app.config.template_loader import TemplateLoader, get_table_max_column_width
 
 
 class TestTemplateLoader(TestCase):
@@ -41,3 +41,11 @@ class TestTemplateLoader(TestCase):
         template = self.templateLoader.make_responsive(template)
 
         print(template)
+
+    def test_get_table_max_column_width(self):
+        template = self.templateLoader.get_template("ranking-president")
+
+        table = get_table_max_column_width(template.split("\n"))
+
+        self.assertEqual(list(table.keys())[0], 4)
+        self.assertEqual(len(list(table.values())[0]), 4)
