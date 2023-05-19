@@ -30,13 +30,15 @@ class ReportFacade:
         total = len(self._voter_service.find_all())
         political_party_ranking = list(self._candidate_service.fetch_political_party_ranking().keys())
 
-        print(report_template.format(
+        report_template = report_template.format(
             "SIM" if valid_election else "NÃO",
             who_voted,
             total,
             political_party_ranking[0],
             political_party_ranking[-1]
-        ))
+        )
+
+        print(self._template_loader.make_responsive(report_template))
 
     def __load_report_template(self, voters: List[Voter]) -> str:
         report_template_item_args = [[index + 1, voter.name] for index, voter in enumerate(voters)]
@@ -51,4 +53,4 @@ class ReportFacade:
                 )
             ]
         )
-        return self._template_loader.make_responsive(report_template)
+        return report_template
