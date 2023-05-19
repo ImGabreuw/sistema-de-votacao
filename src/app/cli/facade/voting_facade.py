@@ -30,11 +30,11 @@ class VotingFacade:
             vote_result = self.__get_voter_votes(voter)
 
             if vote_result.is_err():
-                if vote_result.propagate() is NotConfirmVoteException:
+                if isinstance(vote_result.propagate(), NotConfirmVoteException):
                     print(f"O voto do eleitor '{voter.name}' não foi confirmado.")
                     continue
 
-                if vote_result.propagate() is IllegalArgumentException:
+                if isinstance(vote_result.propagate(), IllegalArgumentException):
                     print(textwrap.dedent(
                         f"""
                         Não foi possível prosseguir com a votação de {voter.name}. 

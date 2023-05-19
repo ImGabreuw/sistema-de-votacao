@@ -14,7 +14,7 @@ class MenuFacade:
         while True:
             print(menu_template)
 
-            selected_option_result = parse_int(input("Opção escolhida: "))
+            selected_option_result = parse_int(input())
 
             if selected_option_result.is_ok() and 1 <= selected_option_result.unwrap() <= 6:
                 return selected_option_result.unwrap()

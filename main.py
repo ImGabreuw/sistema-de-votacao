@@ -47,8 +47,7 @@ if __name__ == '__main__':
             voting_facade.voting()
 
         if selected_option == 4:
-            check_results_facade.show_winners()
-            check_results_facade.show_ranking()
+            check_results_facade.show_results()
 
         if selected_option == 5:
             report_facade.show_report()

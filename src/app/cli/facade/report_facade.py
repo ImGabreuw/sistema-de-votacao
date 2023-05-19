@@ -15,16 +15,23 @@ class ReportFacade:
     _template_loader: TemplateLoader
 
     def show_report(self) -> None:
+        if self._candidate_service.is_insufficient_candidates():
+            print(
+                "Apuração dos resultados cancelada por falta de candidato em uns dos cargos (prefeito, governador ou "
+                "presidente)."
+            )
+            return
+
         voters = self._voter_service.find_all()
         report_template = self.__load_report_template(voters)
 
         valid_election = self._voter_service.is_all_voters_voted()
-        who_voted = self._voter_service.fetch_who_voted()
-        total = self._voter_service.find_all()
+        who_voted = len(self._voter_service.fetch_who_voted())
+        total = len(self._voter_service.find_all())
         political_party_ranking = list(self._candidate_service.fetch_political_party_ranking().keys())
 
         print(report_template.format(
-            valid_election,
+            "SIM" if valid_election else "NÃO",
             who_voted,
             total,
             political_party_ranking[0],
@@ -32,7 +39,7 @@ class ReportFacade:
         ))
 
     def __load_report_template(self, voters: List[Voter]) -> str:
-        report_template_item_args = [[index, voter.name] for index, voter in enumerate(voters)]
+        report_template_item_args = [[index + 1, voter.name] for index, voter in enumerate(voters)]
 
         report_template = self._template_loader.get_template("report")
         report_template = self._template_loader.fill_files_item(

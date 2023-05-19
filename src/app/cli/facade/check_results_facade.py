@@ -6,7 +6,9 @@ from src.app.config.template_item_args import FileItemArgs
 from src.app.config.template_loader import TemplateLoader
 from src.domain.entities.role import Role
 from src.domain.service.check_results_service import CheckResultService
+from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.shared.helper.number_helper import format_number
+from src.shared.monad.result import Result, Err, Ok
 
 
 @dataclass
@@ -14,14 +16,21 @@ class CheckResultsFacade:
     _template_loader: TemplateLoader
     _check_results_service: CheckResultService
 
-    def show_winners(self) -> None:
-        winners_template = self._template_loader.get_template("winners")
-
-        result = self._check_results_service.get_winners()
+    def show_results(self) -> None:
+        result = self.show_winners()
 
         if result.is_err():
             print(result.get_error_message())
             return
+
+        self.show_ranking()
+
+    def show_winners(self) -> Result[None, IllegalArgumentException]:
+        winners_template = self._template_loader.get_template("winners")
+        result = self._check_results_service.get_winners()
+
+        if result.is_err():
+            return Err(result.propagate())
 
         voting_result = result.unwrap()
         mayor_winner = voting_result.mayor
@@ -35,6 +44,7 @@ class CheckResultsFacade:
         )
 
         print(self._template_loader.make_responsive(winners_template))
+        return Ok(None)
 
     def show_ranking(self) -> None:
         ranking = self._check_results_service.fetch_ranking()
