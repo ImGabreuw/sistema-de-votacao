@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from src.app.config.template_item_args import FileItemArgs
-from src.app.config.template_loader import TemplateLoader, get_table_max_column_width
+from src.app.config.template_loader import TemplateLoader
 
 
 class TestTemplateLoader(TestCase):
@@ -34,6 +34,30 @@ class TestTemplateLoader(TestCase):
 
         print(self.templateLoader.make_responsive(template))
 
+    def test_table_responsiveness(self):
+        template = self.templateLoader.get_template("ranking-president")
+
+        template = self.templateLoader.fill_files_item(template, [
+            FileItemArgs(
+                3,
+                [
+                    [1, "Enzo", "AAA", 10, 10],
+                    [2, "Gabriel", "AAA", 10, 10],
+                    [3, "Felipe", "AAA", 10, 10],
+                    [4, "Nicolas", "AAA", 10, 10],
+                ]
+            )
+        ])
+
+        template = template.format(
+            10,
+            8, 80,
+            1, 10,
+            1, 10
+        )
+
+        print(self.templateLoader.make_responsive(template))
+
     def test_make_responsive_on_confirm_vote(self):
         template = self.templateLoader.get_template("confirm-vote")
         template = template.format("Gabriel", "GAB", 1)
@@ -42,10 +66,3 @@ class TestTemplateLoader(TestCase):
 
         print(template)
 
-    def test_get_table_max_column_width(self):
-        template = self.templateLoader.get_template("ranking-president")
-
-        table = get_table_max_column_width(template.split("\n"))
-
-        self.assertEqual(list(table.keys())[0], 4)
-        self.assertEqual(len(list(table.values())[0]), 4)

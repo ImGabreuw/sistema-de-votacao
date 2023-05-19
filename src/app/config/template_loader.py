@@ -1,4 +1,5 @@
 import re
+from math import floor
 from os import listdir
 from os.path import join, dirname, abspath
 from typing import Dict, List
@@ -55,11 +56,9 @@ class TemplateLoader:
         responsive = []
 
         lines = template.split("\n")
-
         titles_index = get_titles(lines)
-
         max_width = max([len(line) for line in lines])
-        max_column_width = get_table_max_column_width(lines)
+        columns_width = get_table_column_width(lines)
 
         for index, line in enumerate(lines):
             # responsividade na borda superior do template
@@ -73,7 +72,8 @@ class TemplateLoader:
             if has_column(line_without_border):
                 responsive_columns = []
                 columns = line_without_border.split("|")
-                column_width = max_column_width[get_number_of_columns(line)]
+                number_of_columns = get_number_of_columns(line)
+                column_width = columns_width[number_of_columns]
 
                 for i, column in enumerate(columns):
                     responsive_columns.append(
@@ -83,7 +83,14 @@ class TemplateLoader:
                 responsive_table_line = "|".join(responsive_columns)
 
                 if len(responsive_table_line) < max_width:
-                    responsive_table_line.center(max_width, " ")
+                    # Distribuir igualmente os espaços faltantes para atingir o valor de "max_width"
+                    for i, column in enumerate(responsive_columns):
+                        responsive_columns[i] = column.center(
+                            len(column) + (floor((max_width - len(responsive_table_line)) / number_of_columns)),
+                            " "
+                        )
+
+                    responsive_table_line = "|".join(responsive_columns).center(max_width)
 
                 responsive.append(f'|{responsive_table_line}|')
                 continue
@@ -116,7 +123,7 @@ def get_number_of_columns(line: str) -> int:
     return line.count("|") - 1
 
 
-def get_table_max_column_width(lines: List[str]) -> Dict[int, List[int]]:
+def get_table_column_width(lines: List[str]) -> Dict[int, List[int]]:
     tables = {}
 
     for line in lines:
@@ -129,13 +136,18 @@ def get_table_max_column_width(lines: List[str]) -> Dict[int, List[int]]:
             continue
 
         if number_of_column not in tables:
-            tables.update({number_of_column: []})
+            tables.update({number_of_column: [0] * number_of_column})
 
         columns = line[1:-2].split("|")
 
-        for column in columns:
+        for index, column in enumerate(columns):
             column = column.replace("|", "")
-            tables[number_of_column].append(len(column))
+
+            if tables[number_of_column][index] < len(column):
+                horizontal_padding = 3
+                column = " " * horizontal_padding + column.strip() + " " * horizontal_padding
+                tables[number_of_column][index] = len(column)
+                continue
 
     return tables
 
