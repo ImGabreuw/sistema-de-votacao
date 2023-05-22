@@ -5,7 +5,7 @@ from os.path import join, dirname, abspath
 from typing import Dict, List
 
 from src.app.config.template_item_args import FileItemArgs
-from src.shared.annotion.singleton import singleton
+from src.shared.annotation.singleton import singleton
 from src.shared.helper.string_helper import has_column, count_white_spaces_until_not_blank_char
 
 
