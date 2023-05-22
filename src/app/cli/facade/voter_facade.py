@@ -30,5 +30,5 @@ class VoterFacade:
                 ))
                 continue
 
-            if input("Deseja inserir um novo eleitor? (SIM ou NÃO) ").upper() == "NÃO":
+            if input("Deseja inserir um novo eleitor? (SIM ou NAO) ").upper() == "NAO":
                 break

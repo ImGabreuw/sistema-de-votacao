@@ -44,5 +44,5 @@ class CandidateFacade:
                 ))
                 continue
 
-            if input("Deseja inserir um novo candidato? (SIM ou NÃO) ").upper() == "NÃO":
+            if input("Deseja inserir um novo candidato? (SIM ou NAO) ").upper() == "NAO":
                 break
