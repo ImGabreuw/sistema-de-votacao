@@ -53,3 +53,33 @@ class TestCandidate(TestCase):
         candidate_result = create(name, number, political_party, None)
 
         self.assertTrue(candidate_result.is_err())
+
+    def test_not_eq_candidate(self):
+        candidate_1 = create("Gabriel", 1, "AAA", Role.PRESIDENT).unwrap()
+        candidate_2 = create("Enzo", 2, "BBB", Role.PRESIDENT).unwrap()
+
+        self.assertFalse(candidate_1 == candidate_2)
+
+    def test_eq_candidate(self):
+        candidate_1 = create("Gabriel", 1, "AAA", Role.PRESIDENT).unwrap()
+        candidate_2 = create("Gabriel", 2, "BBB", Role.PRESIDENT).unwrap()
+
+        self.assertTrue(candidate_1 == candidate_2)
+
+    def test_eq_other_not_candidate(self):
+        candidate = create("Gabriel", 1, "AAA", Role.PRESIDENT).unwrap()
+        other = "other"
+
+        self.assertFalse(candidate == other)
+
+    def test_get_number_of_votes(self):
+        candidate = create("Gabriel", 1, "AAA", Role.PRESIDENT).unwrap()
+
+        self.assertEqual(candidate.get_number_of_votes(), 0)
+
+    def test_increment_vote(self):
+        candidate = create("Gabriel", 1, "AAA", Role.PRESIDENT).unwrap()
+
+        candidate.increment_vote()
+
+        self.assertEqual(candidate.get_number_of_votes(), 1)
