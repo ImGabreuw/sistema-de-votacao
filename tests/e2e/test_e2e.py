@@ -1,10 +1,10 @@
 import pyautogui
-from faker import Faker
 
 from src.domain.entities.role import Role
+from src.shared.helper.faker_helper import get_fake_instance, generate_unique_cpf
 from src.shared.helper.pyautogui_helper import write_multiple_lines
 
-fake = Faker()
+fake = get_fake_instance()
 
 
 def open_and_run_main_py():
@@ -37,7 +37,26 @@ def register_candidates(n: int):
         pyautogui.write("NAO" if i == n else "SIM")
         pyautogui.press("enter")
 
+    pyautogui.PAUSE = 0.5
+
+
+def register_voters(n: int):
+    pyautogui.write("2")
+    pyautogui.press("enter")
+
+    for i in range(1, n + 1):
+        write_multiple_lines(
+            fake.name(),
+            generate_unique_cpf()
+        )
+
+        pyautogui.write("NAO" if i == n else "SIM")
+        pyautogui.press("enter")
+
+    pyautogui.PAUSE = 0.5
+
 
 if __name__ == '__main__':
     open_and_run_main_py()
-    register_candidates(10)
+    register_candidates(3)
+    register_voters(3)
