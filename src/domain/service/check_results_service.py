@@ -8,6 +8,7 @@ from src.domain.entities.role import Role
 from src.domain.service.candidate_service import CandidateService
 from src.domain.service.errors.illegal_argument_exception import IllegalArgumentException
 from src.domain.service.voter_service import VoterService
+from src.shared.helper.number_helper import format_number
 from src.shared.monad.result import Result, Err, Ok
 
 
@@ -62,18 +63,18 @@ class CheckResultService:
                     candidate.name,
                     candidate.political_party,
                     candidate.number_of_votes,
-                    (candidate.number_of_votes / total_valid_votes) * 100
+                    format_number((candidate.number_of_votes / total_valid_votes) * 100)
                 ))
 
             ranking_dto.append(RankingDTO(
                 candidates,
                 total_votes,
                 total_valid_votes,
-                (total_valid_votes / total_votes) * 100,
+                format_number((total_valid_votes / total_votes) * 100),
                 total_blank,
-                (total_blank / total_votes) * 100,
+                format_number((total_blank / total_votes) * 100),
                 total_null,
-                (total_null / total_votes) * 100
+                format_number((total_null / total_votes) * 100)
             ))
 
         return ranking_dto
