@@ -4,20 +4,55 @@
 ![GitHub forks](https://img.shields.io/github/forks/ImGabreuw/sistema-de-votacao?style=for-the-badge)
 ![Bitbucket open issues](https://img.shields.io/github/issues/ImGabreuw/sistema-de-votacao?style=for-the-badge)
 
-> Breve descrição
+> Simulador do sistema de votação brasileiro feito em Python.
 
 ## 💻 Demonstração
 
+### Menu
+
+### Registro de candidato
+
+### Registro de eleitores
+
+### Votação
+
+### Resultados
+
+### Relatórios
+
+### Fim
+
 ## ⚠️ Pré-requisitos
 
-- Node e NPM/Yarn
+- [Python 3.10+](https://www.python.org/downloads/)
 
-## 💻 Conceitos
+- [PyCharm Community](https://www.jetbrains.com/pycharm/download/)
 
-- TypeScript
-- NestJS
-- Prisma
-- Jest
+## 💡 Conceitos
+
+### Algoritmo e Programação I
+
+- Estruturas condicionais
+
+- Estruturas de repetição
+
+- Escopo de variáveis
+
+- Sub-rotinas (funções)
+
+- Manipulação e formatação de string
+
+- Estruturas de dados: lista, dicionário, tupla
+
+- Algoritmo de ordenação (_Tim Sort_)
+
+- Leitura de arquivos
+
+### Matemática Discreta I
+
+- Leis de De Morgan
+
+- Validação de CPF
 
 ## 🚀 Execução do projeto
 
@@ -29,13 +64,10 @@ $ git clone https://github.com/ImGabreuw/sistema-de-votacao.git
 $ cd sistema-de-votacao
 
 # Instação de dependências
-$ npm i
+$ pip install -r requirements.txt
 
-# Configuração do banco de dados (SQLite)
-$ npx prisma migrate dev
-
-# Executar a versão de desenvolvimento
-$ npm run start:dev
+# Executar o projeto
+$ python main.py
 ```
 
 ## 📫 Contribuição
@@ -66,10 +98,10 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/ImGabreuw">
-        <img src="https://avatars.githubusercontent.com/u/60116449?v=4" width="100px;" alt="ImGabreuw"/><br>
+      <a href="https://github.com/Enzo-B-Proenca">
+        <img src="https://avatars.githubusercontent.com/u/125296830?v=4" width="100px;" alt="Enzo-B-Proenca"/><br>
         <sub>
-          <b>ImGabreuw</b>
+          <b>Enzo-B-Proenca</b>
         </sub>
       </a>
     </td>
