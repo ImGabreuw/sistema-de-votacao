@@ -10,17 +10,41 @@
 
 ### Menu
 
+![](./docs/assets/menu.png)
+
 ### Registro de candidato
+
+![](./docs/assets/register_candidate.png)
 
 ### Registro de eleitor
 
+![](./docs/assets/register_voter.png)
+
 ### Votação
+
+![](./docs/assets/voting_mayor.png)
+
+![](./docs/assets/voting_governor.png)
+
+![](./docs/assets/voting_president.png)
 
 ### Resultados
 
+![](./docs/assets/elected_candidates.png)
+
+![](./docs/assets/ranking_mayor.png)
+
+![](./docs/assets/ranking_governor.png)
+
+![](./docs/assets/ranking_president.png)
+
 ### Relatórios
 
+![](./docs/assets/report.png)
+
 ### Fim
+
+![](./docs/assets/end.png)
 
 ## ⚠️ Pré-requisitos
 
