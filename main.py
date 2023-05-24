@@ -1,6 +1,7 @@
 from src.app.cli.confirm_vote_cli import ConfirmVoteCLI
 from src.app.cli.facade.candidate_facade import CandidateFacade
 from src.app.cli.facade.check_results_facade import CheckResultsFacade
+from src.app.cli.facade.end_facade import EndFacade
 from src.app.cli.facade.menu_facade import MenuFacade
 from src.app.cli.facade.report_facade import ReportFacade
 from src.app.cli.facade.voter_facade import VoterFacade
@@ -21,6 +22,7 @@ if __name__ == '__main__':
 
     menu_facade = MenuFacade(template_loader)
     candidate_facade = CandidateFacade(candidate_service)
+    voter_facade = VoterFacade(voter_service)
     voting_facade = VotingFacade(
         confirm_vote_cli,
         voting_service,
@@ -33,6 +35,7 @@ if __name__ == '__main__':
         voter_service,
         template_loader
     )
+    end_facade = EndFacade(template_loader)
 
     while True:
         selected_option = menu_facade.show_menu()
@@ -41,7 +44,7 @@ if __name__ == '__main__':
             candidate_facade.register_candidates()
 
         if selected_option == 2:
-            VoterFacade(voter_service).register_voters()
+            voter_facade.register_voters()
 
         if selected_option == 3:
             voting_facade.voting()
@@ -53,5 +56,5 @@ if __name__ == '__main__':
             report_facade.show_report()
 
         if selected_option == 6:
-            print(template_loader.get_template("end"))
+            end_facade.show_end()
             break
