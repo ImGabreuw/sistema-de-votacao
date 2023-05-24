@@ -1,4 +1,4 @@
-from src.app.cli.confirm_vote_cli import ConfirmVoteCLI
+from src.app.cli.adapter.confirm_vote_cli import ConfirmVoteCLI
 from src.app.cli.facade.candidate_facade import CandidateFacade
 from src.app.cli.facade.check_results_facade import CheckResultsFacade
 from src.app.cli.facade.end_facade import EndFacade

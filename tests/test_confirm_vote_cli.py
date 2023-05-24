@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-from src.app.cli.confirm_vote_cli import ConfirmVoteCLI
+from src.app.cli.adapter.confirm_vote_cli import ConfirmVoteCLI
 from src.app.config.template_loader import TemplateLoader
 from src.domain.service.candidate_service import CandidateService
 from src.domain.adapter.confirm_vote import ConfirmVote
