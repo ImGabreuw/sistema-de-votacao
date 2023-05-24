@@ -10,7 +10,7 @@ class VoterFacade:
 
     def register_voters(self) -> None:
         while True:
-            print("\nInsira as informações do candidato:\n")
+            print("\nInsira as informações do eleitor:\n")
 
             name = input("Nome: ")
             cpf = input("CPF: ")
