@@ -12,7 +12,7 @@
 
 ### Registro de candidato
 
-### Registro de eleitores
+### Registro de eleitor
 
 ### Votação
 
