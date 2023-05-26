@@ -110,8 +110,8 @@ def end():
 
 if __name__ == '__main__':
     open_and_run_main_py()
-    register_candidates(10)
-    register_voters(10)
+    register_candidates(6)
+    register_voters(6)
     voting()
     voting_results()
     report()

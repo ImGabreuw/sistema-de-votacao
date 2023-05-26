@@ -84,4 +84,4 @@ class CheckResultsFacade:
             ]
         )
 
-        return self._template_loader.make_responsive(ranking_template)
+        return ranking_template

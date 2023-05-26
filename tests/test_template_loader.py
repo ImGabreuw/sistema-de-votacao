@@ -2,6 +2,8 @@ from unittest import TestCase
 
 from src.app.config.template_item_args import FileItemArgs
 from src.app.config.template_loader import TemplateLoader
+from src.domain.entities.role import Role
+from src.shared.helper.faker_helper import get_fake_instance
 
 
 class TestTemplateLoader(TestCase):
@@ -37,16 +39,22 @@ class TestTemplateLoader(TestCase):
     def test_table_responsiveness(self):
         template = self.templateLoader.get_template("ranking-president")
 
+        fake = get_fake_instance()
+
+        args = []
+        n = 10
+
+        for i in range(n):
+            args.append([
+                i + 1,
+                fake.unique.name(),
+                fake.company(),
+                fake.random_int(min=0),
+                fake.random_int(min=0, max=100),
+            ])
+
         template = self.templateLoader.fill_files_item(template, [
-            FileItemArgs(
-                3,
-                [
-                    [1, "Enzo", "AAA", 10, 10],
-                    [2, "Gabriel", "AAA", 10, 10],
-                    [3, "Felipe", "AAA", 10, 10],
-                    [4, "Nicolas", "AAA", 10, 10],
-                ]
-            )
+            FileItemArgs(n, args)
         ])
 
         template = template.format(
@@ -65,4 +73,3 @@ class TestTemplateLoader(TestCase):
         template = self.templateLoader.make_responsive(template)
 
         print(template)
-
