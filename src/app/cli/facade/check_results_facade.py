@@ -69,7 +69,7 @@ class CheckResultsFacade:
                 candidate.name,
                 candidate.political_party,
                 candidate.votes,
-                format_number(candidate.perc_valid_votes)
+                candidate.perc_valid_votes
             ] for index, candidate in enumerate(ranking.candidates)
         ]
 

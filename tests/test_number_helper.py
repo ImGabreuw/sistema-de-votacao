@@ -7,4 +7,4 @@ class Test(TestCase):
     def test_format_number(self):
         number = 3.1415
 
-        self.assertEquals(format_number(number), 3.14)
+        self.assertEqual(format_number(number), "3,14")

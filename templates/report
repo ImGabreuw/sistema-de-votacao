@@ -8,6 +8,6 @@
 |                                     Partidos                                          |
 | --------------------------------------------------------------------------------------|
 |   Todos eleitores votaram? {0} (votaram: {1} / total: {2})                            |
-|   Partido com mais políticos eleitos = {3}                                            |
-|   Partido com menos políticos eleitos = {4}                                           |
+|   Partido com mais políticos eleitos = {3} ({4})                                      |
+|   Partido com menos políticos eleitos = {5} ({6})                                     |
 |_______________________________________________________________________________________|

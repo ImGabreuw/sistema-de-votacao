@@ -28,14 +28,18 @@ class ReportFacade:
         valid_election = self._voter_service.is_all_voters_voted()
         who_voted = len(self._voter_service.fetch_who_voted())
         total = len(self._voter_service.find_all())
-        political_party_ranking = list(self._candidate_service.fetch_political_party_ranking().keys())
+
+        political_party_ranking = self._candidate_service.fetch_political_party_ranking()
+        political_parties = list(political_party_ranking.keys())
+        more_elected = political_parties[0]
+        less_elected = political_parties[-1]
 
         report_template = report_template.format(
             "SIM" if valid_election else "NÃO",
             who_voted,
             total,
-            political_party_ranking[0],
-            political_party_ranking[-1]
+            more_elected, political_party_ranking[more_elected],
+            less_elected, political_party_ranking[less_elected]
         )
 
         print(self._template_loader.make_responsive(report_template))

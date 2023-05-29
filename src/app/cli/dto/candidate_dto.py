@@ -6,4 +6,4 @@ class CandidateDTO:
     name: str
     political_party: str
     votes: int
-    perc_valid_votes: float
+    perc_valid_votes: str

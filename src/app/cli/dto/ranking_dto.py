@@ -11,10 +11,10 @@ class RankingDTO:
     total_votes: int
 
     total_valid_votes: int
-    perc_total_valid_votes: float
+    perc_total_valid_votes: str
 
     total_blank: int
-    perc_total_blank: float
+    perc_total_blank: str
 
     total_null: int
-    perc_total_null: float
+    perc_total_null: str

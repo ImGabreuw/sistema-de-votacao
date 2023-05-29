@@ -16,5 +16,5 @@ def parse_int(raw_int: str) -> Result[int, ValueError]:
     return Ok(int(raw_int))
 
 
-def format_number(number: float, digits: int = 2) -> float:
-    return float(f"{number:.{digits}f}")
+def format_number(number: float, digits: int = 2) -> str:
+    return f"{number:.{digits}f}".replace(".", ",")
